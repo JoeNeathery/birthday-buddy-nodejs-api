@@ -7,7 +7,8 @@ const userSchema = new Schema({
     dateOfBirth: Date,
     email: String,
     password: String,
-    permissionLevel: Number
+    permissionLevel: Number,
+    createDate: Date
 });
 
 userSchema.virtual('id').get(function () {
@@ -27,6 +28,7 @@ userSchema.findById = function (cb) {
 const User = mongoose.model('users', userSchema);
 
 exports.createUser = (userData) => {
+    userData.createDate = new Date();
     const user = new User(userData);
     return user.save();
 };
