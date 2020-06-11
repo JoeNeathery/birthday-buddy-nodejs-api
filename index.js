@@ -26,7 +26,7 @@ AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 
 
-app.listen(config.port, function () {
+app.listen(config.server.port, function () {
     console.log(env);
-    console.log('app listening at port %s', config.port);
+    console.log('app listening at port %s', config.server.port);
 });
