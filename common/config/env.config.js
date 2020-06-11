@@ -21,9 +21,9 @@ var config = {
     },
     production: {
         server: {
-            appEndpoint: "http://52.87.42.240:3600",
-            apiEndpoint: "http://52.87.42.240:3600",
-            port: 3600,
+            appEndpoint: "http://52.87.42.240:80",
+            apiEndpoint: "http://52.87.42.240:80",
+            port: 80,
             jwt_secret: "myS33!!creeeT",
             jwt_expiration_in_seconds: 36000
         },
