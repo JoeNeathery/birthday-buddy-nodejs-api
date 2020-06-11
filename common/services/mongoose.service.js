@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var env = process.env.NODE_ENV || 'development';
+const config = require('../config/env.config')[env];
 let count = 0;
 
 const options = {
@@ -15,7 +17,7 @@ const options = {
 };
 const connectWithRetry = () => {
     console.log('MongoDB connection with retry')
-    mongoose.connect("mongodb://localhost:27017/BirthdayBuddyLocal", options).then(()=>{
+    mongoose.connect("mongodb://" + config.database.host + ":" + config.database.port + "/" + config.database.db, options).then(()=>{
         console.log('MongoDB is connected')
     }).catch(err=>{
         console.log('MongoDB connection unsuccessful, retry after 5 seconds. ', ++count);

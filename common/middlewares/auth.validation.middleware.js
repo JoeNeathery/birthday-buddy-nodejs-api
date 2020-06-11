@@ -1,5 +1,8 @@
+var env = process.env.NODE_ENV || 'development';
+const config = require('../config/env.config')[env];
+
 const jwt = require('jsonwebtoken'),
-    secret = require('../env.config.js').jwt_secret,
+    secret = config.jwt_secret;
     crypto = require('crypto');
 
 exports.verifyRefreshBodyField = (req, res, next) => {

@@ -1,4 +1,5 @@
-const config = require('./common/env.config');
+var env = process.env.NODE_ENV || 'development';
+const config = require('./common/config/env.config')[env];
 
 const express = require('express');
 const app = express();

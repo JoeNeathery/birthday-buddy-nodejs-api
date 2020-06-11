@@ -1,7 +1,8 @@
 const UsersController = require('./controllers/users.controller');
 const PermissionMiddleware = require('../common/middlewares/auth.permission.middleware');
 const ValidationMiddleware = require('../common/middlewares/auth.validation.middleware');
-const config = require('../common/env.config');
+var env = process.env.NODE_ENV || 'development';
+const config = require('../common/config/env.config')[env];
 
 const ADMIN = config.permissionLevels.ADMIN;
 const PAID = config.permissionLevels.PAID_USER;
