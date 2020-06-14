@@ -1,7 +1,7 @@
 var env = process.env.NODE_ENV || 'development';
 const config = require('../../common/config/env.config')[env];
 
-const jwtSecret = config.jwt_secret;
+const jwtSecret = config.server.jwt_secret;
     jwt = require('jsonwebtoken');
     const crypto = require('crypto');
     const uuid = require('uuid');
