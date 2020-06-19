@@ -1,6 +1,8 @@
 const UsersController = require('./controllers/users.controller');
 const PermissionMiddleware = require('../common/middlewares/auth.permission.middleware');
 const ValidationMiddleware = require('../common/middlewares/auth.validation.middleware');
+const VerifyUserMiddleware = require('../auth/middlewares/verify.user.middleware');
+const AuthorizationController = require('../auth/controllers/auth.controller');
 var env = process.env.NODE_ENV || 'development';
 const config = require('../common/config/env.config')[env];
 
@@ -10,7 +12,10 @@ const FREE = config.permissionLevels.NORMAL_USER;
 
 exports.routesConfig = function (app) {
     app.post('/users', [
-        UsersController.insert
+        UsersController.insert,
+        VerifyUserMiddleware.hasAuthValidFields,
+        VerifyUserMiddleware.isPasswordAndUserMatch,
+        AuthorizationController.login
      ]);
      app.get('/users', [
         ValidationMiddleware.validJWTNeeded,

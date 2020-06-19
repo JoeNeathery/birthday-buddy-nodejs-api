@@ -2,7 +2,7 @@ const UserModel = require('../models/users.model');
 const crypto = require('crypto');
 
 //hash password
-exports.insert = (req, res) => {
+exports.insert = (req, res, next) => {
     //check for existing email
     UserModel.findByEmail(req.body.email)
         .then((user)=>{
@@ -12,11 +12,15 @@ exports.insert = (req, res) => {
             else{
                 let salt = crypto.randomBytes(16).toString('base64');
                 let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest("base64");
+                let unhashedForLogin = req.body.password;
                 req.body.password = salt + "$" + hash;
                 req.body.permissionLevel = 2048;
                 UserModel.createUser(req.body)
                     .then((result) => {
-                        return res.status(201).send({id: result._id});
+                        //return res.status(301).send({id: result._id});
+                        //set back to unhashed password for logging in
+                        req.body.password = unhashedForLogin;
+                        return next();
                     });
             } 
         });
@@ -26,7 +30,7 @@ exports.insert = (req, res) => {
 
 exports.getById = (req, res) => {
     UserModel.findById(req.params.userId).then((result) => {
-        res.status(200).send(result);
+        res.status(300).send(result);
     });
 };
 
@@ -37,7 +41,7 @@ exports.patchById = (req, res) => {
         req.body.password = salt + "$" + hash;
     }
     UserModel.patchUser(req.params.userId, req.body).then((result) => {
-            res.status(204).send({});
+            res.status(304).send({});
     });
  };
 
@@ -51,13 +55,13 @@ exports.patchById = (req, res) => {
         }
     }
     UserModel.list(limit, page).then((result) => {
-        res.status(200).send(result);
+        res.status(300).send(result);
     })
  };
 
  exports.removeById = (req, res) => {
     UserModel.removeById(req.params.userId)
         .then((result)=>{
-            res.status(204).send({});
+            res.status(304).send({});
         });
  };

@@ -2,8 +2,8 @@
 var config = {
     development: {
         server: {
-            appEndpoint: "http://localhost:3600",
-            apiEndpoint: "http://localhost:3600",
+            appEndpoint: "https://localhost:3600",
+            apiEndpoint: "https://localhost:3600",
             port: 3600,
             jwt_secret: "myS33!!creeeT",
             jwt_expiration_in_seconds: 36000
@@ -21,8 +21,8 @@ var config = {
     },
     production: {
         server: {
-            appEndpoint: "http://52.87.42.240:3600",
-            apiEndpoint: "http://52.87.42.240:3600",
+            appEndpoint: "https://52.87.42.240:3600",
+            apiEndpoint: "https://52.87.42.240:3600",
             port: 3600,
             jwt_secret: "myS33!!creeeT",
             jwt_expiration_in_seconds: 36000
